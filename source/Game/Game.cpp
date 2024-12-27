@@ -68,6 +68,15 @@ void update(float dt)
             board[row][col] = (board[row][col] + 1) % 10;
         
     }
+    if(Engine::Get().getMouseState().RMBreleased)
+    {
+        int row = Engine::Get().getMouseState().y / 72;
+        int col = Engine::Get().getMouseState().x / 72;
+
+        if(row >= 0 && row < 9 && col >= 0 && col < 9)
+            board[row][col] = (board[row][col] + 9) % 10;
+        
+    }
     
 }
 

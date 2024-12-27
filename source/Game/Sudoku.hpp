@@ -14,7 +14,7 @@ void generateBoard(int Board[9][9])
 
     for(int i = 0; i < hints; i++)
     {
-        while(!validateBoard(Board))
+        do
         {
             row = rand() % 9;
             col = rand() % 9;
@@ -22,7 +22,10 @@ void generateBoard(int Board[9][9])
 
             if(Board[row][col] == 0)
                 Board[row][col] = num;
-        }
+            if (!validateRow(Board, row) || !validateCol(Board, col) || !validateSubMatrix(Board, (row/3) * 3, (col/3) * 3)) {
+                Board[row][col] = 0;
+            }
+        } while(Board[row][col] == 0);
         
     }
 }
