@@ -15,6 +15,8 @@ struct Mouse{
     int x, y;
 };
 
+struct Button;
+
 class Engine
 {
 public:
@@ -51,4 +53,40 @@ private:
 
     Key input[256];
     Mouse mouse;
+};
+
+struct Button{
+
+    Button(const char* texPath, int x, int y, int w, int h, void (*function)()) : func(function)
+    {
+        tex = Engine::Get().loadTexture(texPath);
+        src = {0, 0, w, h};
+        dest = {x, y, w, h};
+    }
+
+    void changeTexCoord(int x, int y, int w, int h)
+    {
+        src = {x, y, w, h};
+    }
+
+    void update(float dt)
+    {
+        if(mouseOver() && Engine::Get().getMouseState().LMBreleased)
+            func();
+    }
+
+protected:
+    SDL_Texture* tex;
+    SDL_Rect src, dest;
+
+    void (*func)();
+
+    bool mouseOver()
+    {
+        int h = abs(Engine::Get().getMouseState().x - dest.x + dest.w/2);
+        int v = abs(Engine::Get().getMouseState().y - dest.y + dest.h/2);
+
+        return h < dest.w/2 && v < dest.h/2;
+    }
+
 };
