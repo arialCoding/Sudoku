@@ -4,6 +4,8 @@
 #define SCR_WIDTH 80*8
 #define SCR_HEIGHT 80*8
 
+gameState state;
+
 int Run()
 {
     
@@ -41,6 +43,7 @@ void reset()
         }
     }
     generateBoard(board);
+    state = PLAYING;
 }
 
 void init()
@@ -54,10 +57,49 @@ void init()
     boardTex = Engine::Get().loadTexture("resource/board.png");
     numbers = Engine::Get().loadTexture("resource/Numbers.png");
 
-    reset();
+    state = MAINMENU;
 }
 
 void update(float dt)
+{
+    switch(state)
+    {
+        case MAINMENU:
+            updateMAINMENU(dt);
+            break;
+        case PAUSED:
+            updatePAUSED(dt);
+            break;
+        case PLAYING:
+            updatePLAYING(dt);
+            break;
+        case WON:
+            updateWON(dt);
+            break;
+    }
+}
+
+void render()
+{
+    switch(state)
+    {
+        case MAINMENU:
+            renderMAINMENU();
+            break;
+        case PAUSED:
+            renderPAUSED();
+            break;
+        case PLAYING:
+            renderPLAYING();
+            break;
+        case WON:
+            renderWON();
+            break;
+    }
+}
+
+//PLAYING//
+void updatePLAYING(float dt)
 {
     if(Engine::Get().getMouseState().LMBreleased)
     {
@@ -83,7 +125,7 @@ void update(float dt)
     
 }
 
-void render()
+void renderPLAYING()
 {
     Engine::Get().Draw(boardTex, NULL, NULL);
 
@@ -99,5 +141,35 @@ void render()
             }
         }
     }
+
+}
+
+//MAINMENU//
+void updateMAINMENU(float dt)
+{
+
+}
+void renderMAINMENU()
+{
+
+}
+
+//PAUSED//
+void updatePAUSED(float dt)
+{
+
+}
+void renderPAUSED()
+{
+
+}
+
+//WON//
+void updateWON(float dt)
+{
+
+}
+void renderWON()
+{
 
 }
