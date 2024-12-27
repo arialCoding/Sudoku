@@ -77,6 +77,9 @@ void update(float dt)
             board[row][col] = (board[row][col] + 9) % 10;
         
     }
+
+    if(boardFull(board) && validateBoard(board))
+        printf("WON!\n");
     
 }
 

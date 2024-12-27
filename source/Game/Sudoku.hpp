@@ -5,6 +5,7 @@ bool validateRow(int Board[9][9], int row);
 bool validateCol(int Board[9][9], int col);
 bool validateSubMatrix(int Board[9][9], int row, int col);
 bool validateBoard(int Board[9][9]);
+bool boardFull(int board[9][9]);
 
 void generateBoard(int Board[9][9])
 {
@@ -92,6 +93,19 @@ bool validateBoard(int Board[9][9])
     for(int i = 0; i < 9; i++)
         if(!validateRow(Board, i) || !validateCol(Board, i) || !validateSubMatrix(Board, i / 3 * 3, i % 3 * 3))
             return false;
+
+    return true;
+}
+bool boardFull(int board[9][9])
+{
+    for(int i = 0; i < 9; i++)
+    {
+        for(int j = 0; j < 9; j++)
+        {
+            if(board[i][j] == 0)
+                return false;
+        }
+    }
 
     return true;
 }
