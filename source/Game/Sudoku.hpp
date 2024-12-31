@@ -1,10 +1,6 @@
 #pragma once
-#include <stdlib.h>
-
-//MAINMENU//
 
 
-//PLAYING//
 void generateBoard(int Board[9][9]);
 
 bool validateRow(int Board[9][9], int row);

@@ -33,19 +33,6 @@ SDL_Texture* numbers;
 
 int board[9][9];
 
-void reset()
-{
-    for(int i = 0; i < 9; i++)
-    {
-        for(int j = 0; j < 9; j++)
-        {
-            board[i][j] = 0;
-        }
-    }
-    generateBoard(board);
-    state = PLAYING;
-}
-
 void init()
 {
     if(!Engine::Get().Init(SCR_WIDTH, SCR_HEIGHT, "Sudoku"))
@@ -57,6 +44,7 @@ void init()
     boardTex = Engine::Get().loadTexture("resource/board.png");
     numbers = Engine::Get().loadTexture("resource/Numbers.png");
 
+    initMAINMENU();
     state = MAINMENU;
 }
 
@@ -66,9 +54,6 @@ void update(float dt)
     {
         case MAINMENU:
             updateMAINMENU(dt);
-            break;
-        case PAUSED:
-            updatePAUSED(dt);
             break;
         case PLAYING:
             updatePLAYING(dt);
@@ -86,9 +71,6 @@ void render()
         case MAINMENU:
             renderMAINMENU();
             break;
-        case PAUSED:
-            renderPAUSED();
-            break;
         case PLAYING:
             renderPLAYING();
             break;
@@ -99,6 +81,18 @@ void render()
 }
 
 //PLAYING//
+void initPLAYING()
+{
+    for(int i = 0; i < 9; i++)
+    {
+        for(int j = 0; j < 9; j++)
+        {
+            board[i][j] = 0;
+        }
+    }
+    generateBoard(board);
+}
+
 void updatePLAYING(float dt)
 {
     if(Engine::Get().getMouseState().LMBreleased)
@@ -145,23 +139,28 @@ void renderPLAYING()
 }
 
 //MAINMENU//
+Button* buttons = (Button*)malloc(2*sizeof(Button));
+void initMAINMENU()
+{
+    buttons[0] = Button("resource/menu_buttons.png", 0, 0, 256, 128, [](){
+            initPLAYING();
+            state = PLAYING;
+    });
+    buttons[0].changeTexCoord(0, 0, 64, 32);
+    buttons[1] = Button("resource/menu_buttons.png", 300, 300, 256, 128, [](){
+            Engine::Get().Quit();
+    });
+    buttons[1].changeTexCoord(0, 32, 64, 32);
+}
 void updateMAINMENU(float dt)
 {
-
+    buttons[0].update(dt);
+    buttons[1].update(dt);
 }
 void renderMAINMENU()
 {
-
-}
-
-//PAUSED//
-void updatePAUSED(float dt)
-{
-
-}
-void renderPAUSED()
-{
-
+    buttons[0].draw();
+    buttons[1].draw();
 }
 
 //WON//

@@ -1,5 +1,5 @@
 #include "Sudoku.hpp"
-
+#include <cstdlib>
 
 //PLAYING//
 void generateBoard(int Board[9][9])
@@ -91,6 +91,7 @@ bool validateBoard(int Board[9][9])
 
     return true;
 }
+
 bool boardFull(int board[9][9])
 {
     for(int i = 0; i < 9; i++)

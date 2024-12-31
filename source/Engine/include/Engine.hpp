@@ -75,6 +75,11 @@ struct Button{
             func();
     }
 
+    void draw()
+    {
+        Engine::Get().Draw(tex, &src, &dest);
+    }
+
 protected:
     SDL_Texture* tex;
     SDL_Rect src, dest;
@@ -83,10 +88,10 @@ protected:
 
     bool mouseOver()
     {
-        int h = abs(Engine::Get().getMouseState().x - dest.x + dest.w/2);
-        int v = abs(Engine::Get().getMouseState().y - dest.y + dest.h/2);
+        int mouseX = Engine::Get().getMouseState().x;
+        int mouseY = Engine::Get().getMouseState().y;
 
-        return h < dest.w/2 && v < dest.h/2;
+        return (mouseX > dest.x && mouseX < dest.x + dest.w && mouseY > dest.y && mouseY < dest.y + dest.h);
     }
 
 };

@@ -5,7 +5,6 @@
 
 enum gameState{
     MAINMENU,
-    PAUSED,
     PLAYING,
     WON
 };
@@ -19,17 +18,16 @@ void update(float dt);
 void render();
 
 //MAINMENU//
+void initMAINMENU();
 void updateMAINMENU(float dt);
 void renderMAINMENU();
 
-//PAUSED//
-void updatePAUSED(float dt);
-void renderPAUSED();
-
 //PLAYING//
+void initPLAYING();
 void updatePLAYING(float dt);
 void renderPLAYING();
 
 //WON//
+void initWON();
 void updateWON(float dt);
 void renderWON();
