@@ -1,4 +1,4 @@
-This is a practice Repo to recreate Tictactoe with c++ and SDL2
+This is a practice Repo to recreate Sudoku with c++ and SDL2
 it's perpose is gonna be to learn some ui and game state management
 after that I might use it to learn some AI.
 
